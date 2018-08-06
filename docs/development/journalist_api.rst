@@ -92,10 +92,11 @@ Response 200 (application/json):
 .. code:: sh
 
   {
-    "current_user_url": "/api/v1/user/",
-    "sources_url": "/api/v1/sources/",
-    "submissions_url": "/api/v1/submissions/"
-    "token_url": "/api/v1/token/"
+    "current_user_url": "/api/v1/user",
+    "sources_url": "/api/v1/sources",
+    "submissions_url": "/api/v1/submissions",
+    "replies_url": "/api/v1/replies",
+    "token_url": "/api/v1/token"
   }
 
 Sources ``[/sources]``
@@ -247,6 +248,65 @@ Response 200 (application/json):
       "source_url": "/api/v1/sources/598b859c-72c7-4e53-a68c-b725eb514241",
       "submission_url": "/api/v1/sources/598b859c-72c7-4e53-a68c-b725eb514241/submissions/4c2e701c-70d2-4cb5-87c0-de59c2ebbc62",
       "uuid": "4c2e701c-70d2-4cb5-87c0-de59c2ebbc62"
+  }
+
+Get all replies associated with a source [``GET``]
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Requires authentication.
+
+.. code:: sh
+
+  GET /api/v1/sources/<source_uuid>/replies
+
+Response 200 (application/json):
+
+.. code:: sh
+
+  {
+      "replies": [
+          {
+              "filename": "3-famished_sheep-reply.gpg",
+              "is_deleted_by_source": false,
+              "journalist_username": "journalist",
+              "reply_url": "/api/v1/sources/f381dbb4-4bb5-451a-801a-e961461af6e5/replies/98cc4ed6-6ac5-4867-b144-f97d0497f2c1",
+              "size": 1116,
+              "source_url": "/api/v1/sources/f381dbb4-4bb5-451a-801a-e961461af6e5",
+              "uuid": "98cc4ed6-6ac5-4867-b144-f97d0497f2c1"
+          },
+          {
+              "filename": "4-famished_sheep-reply.gpg",
+              "is_deleted_by_source": false,
+              "journalist_username": "journalist",
+              "reply_url": "/api/v1/sources/f381dbb4-4bb5-451a-801a-e961461af6e5/replies/2863e3ec-66c8-4b74-ba43-615c805be4da",
+              "size": 1116,
+              "source_url": "/api/v1/sources/f381dbb4-4bb5-451a-801a-e961461af6e5",
+              "uuid": "2863e3ec-66c8-4b74-ba43-615c805be4da"
+          }
+      ]
+  }
+
+Get a single reply associated with a source [``GET``]
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Requires authentication.
+
+.. code:: sh
+
+  GET /api/v1/sources/<source_uuid>/replies/<reply_uuid>
+
+Response 200 (application/json):
+
+.. code:: sh
+
+  {
+      "filename": "3-famished_sheep-reply.gpg",
+      "is_deleted_by_source": false,
+      "journalist_username": "journalist",
+      "reply_url": "/api/v1/sources/f381dbb4-4bb5-451a-801a-e961461af6e5/replies/98cc4ed6-6ac5-4867-b144-f97d0497f2c1",
+      "size": 1116,
+      "source_url": "/api/v1/sources/f381dbb4-4bb5-451a-801a-e961461af6e5",
+      "uuid": "98cc4ed6-6ac5-4867-b144-f97d0497f2c1"
   }
 
 Add a reply to a source [``POST``]
@@ -445,6 +505,63 @@ Response 200:
               "source_url": "/api/v1/sources/598b859c-72c7-4e53-a68c-b725eb514241",
               "submission_url": "/api/v1/sources/598b859c-72c7-4e53-a68c-b725eb514241/submissions/c2e00865-8f75-444a-b5b4-88424024ce69",
               "uuid": "c2e00865-8f75-444a-b5b4-88424024ce69"
+          }
+      ]
+  }
+
+Reply ``[/replies]``
+--------------------
+
+Get all replies [``GET``]
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Requires authentication. This gets details of all replies across sources.
+
+.. code:: sh
+
+  GET /api/v1/replies
+
+Response 200:
+
+.. code:: sh
+
+  {
+      "replies": [
+          {
+              "filename": "3-famished_sheep-reply.gpg",
+              "is_deleted_by_source": false,
+              "journalist_username": "journalist",
+              "reply_url": "/api/v1/sources/f381dbb4-4bb5-451a-801a-e961461af6e5/replies/98cc4ed6-6ac5-4867-b144-f97d0497f2c1",
+              "size": 1116,
+              "source_url": "/api/v1/sources/f381dbb4-4bb5-451a-801a-e961461af6e5",
+              "uuid": "98cc4ed6-6ac5-4867-b144-f97d0497f2c1"
+          },
+          {
+              "filename": "4-famished_sheep-reply.gpg",
+              "is_deleted_by_source": false,
+              "journalist_username": "journalist",
+              "reply_url": "/api/v1/sources/f381dbb4-4bb5-451a-801a-e961461af6e5/replies/2863e3ec-66c8-4b74-ba43-615c805be4da",
+              "size": 1116,
+              "source_url": "/api/v1/sources/f381dbb4-4bb5-451a-801a-e961461af6e5",
+              "uuid": "2863e3ec-66c8-4b74-ba43-615c805be4da"
+          },
+          {
+              "filename": "3-intermittent_proline-reply.gpg",
+              "is_deleted_by_source": false,
+              "journalist_username": "journalist",
+              "reply_url": "/api/v1/sources/06bfd5ba-ed6a-4850-b713-4e6940b74931/replies/33b35f6e-b43e-4ad5-a24b-37fd1916ad75",
+              "size": 1116,
+              "source_url": "/api/v1/sources/06bfd5ba-ed6a-4850-b713-4e6940b74931",
+              "uuid": "33b35f6e-b43e-4ad5-a24b-37fd1916ad75"
+          },
+          {
+              "filename": "4-intermittent_proline-reply.gpg",
+              "is_deleted_by_source": false,
+              "journalist_username": "journalist",
+              "reply_url": "/api/v1/sources/06bfd5ba-ed6a-4850-b713-4e6940b74931/replies/6fad52dd-bc55-42aa-96da-4636644fb3e2",
+              "size": 1116,
+              "source_url": "/api/v1/sources/06bfd5ba-ed6a-4850-b713-4e6940b74931",
+              "uuid": "6fad52dd-bc55-42aa-96da-4636644fb3e2"
           }
       ]
   }
